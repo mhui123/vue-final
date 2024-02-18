@@ -15,11 +15,11 @@ import docs from './utils/api-doc.js';
 // utils
 import { authenticateUser } from './utils/auth.js';
 
-// mongo db
+// mongo db // 'mongodb+srv://test:1234@cluster0-ypgh5.mongodb.net/test?retryWrites=true&w=majority',
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 mongoose.connect(
-  'mongodb+srv://test:1234@cluster0-ypgh5.mongodb.net/test?retryWrites=true&w=majority',
+  'mongodb+srv://mhui7864:1234@cluster0.uxjccsm.mongodb.net/?retryWrites=true&w=majority',
   {
     useNewUrlParser: true,
   },
