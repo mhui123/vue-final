@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>회원가입 페이지</h1>
+    <h1>로그인페이지</h1>
     <form @submit.prevent="submitForm">
       <div>
         <label for="username">id:</label>
@@ -10,25 +10,20 @@
         <label for="password">pw:</label>
         <input type="password" id="password" v-model="password" />
       </div>
-      <div>
-        <label for="nickname">nickname:</label>
-        <input type="text" id="nickname" v-model="nickname" />
-      </div>
-      <button type="submit" :disabled="!isUsernameValid || !password || !nickname">가입하기</button>
+      <button type="submit" :disabled="!isUsernameValid || !password">로그인</button>
       <p>{{ logMessage }}</p>
     </form>
   </div>
 </template>
 
 <script>
-import { registerUser } from '@/api/index.js';
+import { loginUser } from '@/api/index.js';
 import { validateEmail } from '@/utils/validation';
 export default {
   data() {
     return {
       username: '',
       password: '',
-      nickname: '',
       logMessage: '',
     };
   },
@@ -39,21 +34,25 @@ export default {
   },
   methods: {
     async submitForm() {
-      const userData = {
-        username: this.username,
-        password: this.password,
-        nickname: this.nickname,
-      };
-      const { data } = await registerUser(userData);
-      console.log(data.username);
-      this.logMessage = `${data.username} 의 회원가입이 완료되었습니다.`;
-      this.initForm();
+      try {
+        const userData = {
+          username: this.username,
+          password: this.password,
+        };
+        const { data } = await loginUser(userData);
+        this.logMessage = `${data.user.username}님 환영합니다`;
+      } catch (error) {
+        console.log(error);
+        this.logMessage = error.response.data;
+      } finally {
+        this.initForm();
+      }
     },
     initForm() {
       this.username = '';
       this.password = '';
-      this.nickname = '';
     },
+    validateEmail() {},
   },
 };
 </script>
