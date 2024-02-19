@@ -3,7 +3,7 @@
 인프런 Vue.js Endgame 강의에서 다루는 애플리케이션 소스 코드입니다.
 
 ## 기술 스택
-
+- node 12.16.1
 - Vue.js 2.6.10
 - Vue Router
 - Vuex
