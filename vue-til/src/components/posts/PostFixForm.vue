@@ -1,6 +1,6 @@
 <template>
   <div class="contents">
-    <h1 class="page-header">생성페이지</h1>
+    <h1 class="page-header">수정페이지</h1>
     <div class="form-wrapper">
       <form @submit.prevent="submitForm" class="form">
         <div>
@@ -12,7 +12,7 @@
           <textarea type="text" id="contents" v-model="contents" rows="5" />
           <p class="validation-text warning" v-if="!isContentsValid">Text is too long</p>
         </div>
-        <button type="submit" class="btn" :disabled="!title || !contents">Create</button>
+        <button type="submit" class="btn" :disabled="!title || !contents">Fix</button>
       </form>
       <p class="log">{{ logMessage }}</p>
     </div>
@@ -21,6 +21,7 @@
 
 <script>
 import { createPost } from '@/api/posts';
+import { mapMutations, mapGetters } from 'vuex';
 export default {
   data() {
     return {
@@ -33,8 +34,13 @@ export default {
     isContentsValid() {
       return this.contents.length > 0 && this.contents.length <= 200;
     },
+    ...mapGetters(['fixItem']),
+  },
+  created() {
+    this.setTemplate();
   },
   methods: {
+    ...mapMutations([]),
     async submitForm() {
       try {
         const postData = { title: this.title, contents: this.contents };
@@ -43,6 +49,10 @@ export default {
         this.logMessage = error.response.data.message;
       }
       this.$router.push('/main');
+    },
+    setTemplate() {
+      this.title = this.fixItem.title;
+      this.contents = this.fixItem.contents;
     },
   },
 };

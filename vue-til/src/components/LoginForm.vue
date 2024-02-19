@@ -25,6 +25,7 @@
 
 <script>
 import { validateEmail } from '@/utils/validation';
+import { mapActions } from 'vuex';
 
 export default {
   data() {
@@ -40,13 +41,15 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['LOGIN']),
     async submitForm() {
       try {
         const userData = {
           username: this.username,
           password: this.password,
         };
-        await this.$store.dispatch('LOGIN', userData);
+        // await this.$store.dispatch('LOGIN', userData);
+        await this.LOGIN(userData);
         this.$router.push('/main');
       } catch (error) {
         console.log(error);
