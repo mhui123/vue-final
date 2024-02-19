@@ -8,7 +8,7 @@
     <div class="navigations">
       <template v-if="isUserLogin">
         <span class="username">{{ $store.state.username }}</span>
-        <a href="javascript:;" @click="logoutUser">Logout</a>
+        <a href="javascript:;" @click="logoutUser" class="logout-button">Logout</a>
       </template>
 
       <template v-else>
@@ -68,6 +68,9 @@ a.logo {
   position: fixed;
   top: 0;
   width: 100%;
+}
+.logout-button {
+  font-size: 14px;
 }
 a.router-link-exact-active {
   color: white;
