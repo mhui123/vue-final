@@ -41,5 +41,8 @@ export default new Vuex.Store({
       // this.logMessage = `${data.user.username}님 환영합니다`;
       return data;
     },
+    // async WRITE({commit}, postData){
+    //   const { data } = await createPosts(postData);
+    // }
   },
 });
