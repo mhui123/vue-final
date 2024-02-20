@@ -4,7 +4,7 @@
     <!-- <div class="post-contents" value="item.contents">{{ item.contents }}</div> -->
     <textarea class="post-contents" v-model="item.contents" disabled></textarea>
     <div class="post-time">
-      {{ item.createdAt }}
+      {{ item.createdAt | formatDate }}
       <i class="icon ion-md-create" @click="modifyItem"></i>
       <i class="icon ion-md-trash" @click="deleteItem"></i>
     </div>
@@ -12,7 +12,8 @@
 </template>
 
 <script>
-import { deletePost, getPost } from '@/api/posts';
+import { deletePost } from '@/api/posts';
+
 export default {
   props: {
     item: {
@@ -20,6 +21,11 @@ export default {
       required: true,
     },
   },
+  // filters: {
+  //   formatDate(date) {
+  //     return new Date(date);
+  //   },
+  // },
   methods: {
     async deleteItem() {
       if (confirm('삭제?')) {
@@ -30,10 +36,10 @@ export default {
     async modifyItem() {
       const sentence = `router.push({ path: '/modify', params: { id: '${this.item._id}'}})`;
       console.log(sentence);
-      const { data } = await getPost(this.item._id);
-      const body = data.posts[0];
-      this.$store.commit('setFixItem', body);
-      this.$router.push('/fix');
+      // const { data } = await getPost(this.item._id);
+      // const body = data.posts[0];
+      // this.$store.commit('setFixItem', body);
+      this.$router.push(`/post/${this.item._id}`);
       // this.$router.push({ path: '/fix', params: { id: '${this.item._id}' } });
     },
   },
