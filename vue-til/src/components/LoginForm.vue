@@ -26,6 +26,7 @@
 <script>
 import { validateEmail } from '@/utils/validation';
 import { mapActions } from 'vuex';
+import bus from '@/utils/bus.js';
 
 export default {
   data() {
@@ -49,7 +50,8 @@ export default {
           password: this.password,
         };
         // await this.$store.dispatch('LOGIN', userData);
-        await this.LOGIN(userData);
+        const response = await this.LOGIN(userData);
+        bus.$emit('show:toast', response.message);
         this.$router.push('/main');
       } catch (error) {
         console.log(error);
