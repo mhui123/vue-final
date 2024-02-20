@@ -16,7 +16,7 @@
           <label for="password">pw:</label>
           <input type="password" id="password" v-model="password" />
         </div>
-        <button class="btn" type="submit" :disabled="!isUsernameValid || !password">로그인</button>
+        <button class="btn" type="submit" :disabled="!isUsernameValid || !password" :class="!isUsernameValid || !password ? 'disabled' : null">로그인</button>
         <p class="log">{{ logMessage }}</p>
       </form>
     </div>
