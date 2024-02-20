@@ -18,10 +18,10 @@ function deletePost(postId) {
 
 //수정대상 데이터 조회
 function getPost(postId) {
-  return posts.get('/', postId);
+  return posts.get(postId);
 }
-function modifyPost(postData) {
-  return posts.put('/', postData);
+function editPost(id, postData) {
+  return posts.put(`/${id}`, postData);
 }
 
-export { fetchPosts, createPost, deletePost, getPost, modifyPost };
+export { fetchPosts, createPost, deletePost, getPost, editPost };

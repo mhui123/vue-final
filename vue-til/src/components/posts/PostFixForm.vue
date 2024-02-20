@@ -20,8 +20,7 @@
 </template>
 
 <script>
-import { createPost } from '@/api/posts';
-import { mapMutations, mapGetters } from 'vuex';
+import { editPost, getPost } from '@/api/posts';
 export default {
   data() {
     return {
@@ -34,21 +33,22 @@ export default {
     isContentsValid() {
       return this.contents.length > 0 && this.contents.length <= 200;
     },
-    ...mapGetters(['fixItem']),
   },
-  created() {
-    this.setTemplate();
+  async created() {
+    const id = this.$route.params['id'];
+    const { data } = await getPost(id);
+    this.title = data.title;
+    this.contents = data.contents;
   },
   methods: {
-    ...mapMutations([]),
     async submitForm() {
       try {
         const postData = { title: this.title, contents: this.contents };
-        await createPost(postData);
+        await editPost(this.$route.params['id'], postData);
+        this.$router.push('/main');
       } catch (error) {
         this.logMessage = error.response.data.message;
       }
-      this.$router.push('/main');
     },
     setTemplate() {
       this.title = this.fixItem.title;

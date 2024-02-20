@@ -11,7 +11,7 @@ const mutations = {
   },
 };
 const getters = {
-  fixItem(state) {
+  getFixItem(state) {
     return state.fixItem;
   },
 };
